@@ -1,0 +1,35 @@
+import numpy as np
+import npufunc
+a = np.arange(5.)
+b = np.arange(5.)
+c = np.arange(5.)
+print npufunc.fma(a, b, c)
+print a * b + c
+
+a = np.arange(5.)
+b = np.arange(5.)
+c = np.arange(1.)
+print npufunc.fma(a, b, c)
+print a * b + c
+
+a = np.arange(1.)
+b = np.arange(5.)
+c = np.arange(1.)
+print npufunc.fma(a, b, c)
+print a * b + c
+
+a = np.arange(5000.)
+b = np.arange(5000.)
+c = np.arange(5000.)
+%timeit npufunc.fma(a, b, c)
+
+def npfma(a,b,c):
+    a * b + c
+
+%timeit npfma(a, b, c)
+
+a = np.arange(50000.)
+b = np.arange(50000.)
+c = np.arange(50000.)
+%timeit npufunc.fma(a, b, c)
+%timeit npfma(a, b, c)
