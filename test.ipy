@@ -1,35 +1,51 @@
 import numpy as np
-import npufunc
+import npfma
+
+#npfma.set_type("libc")
+npfma.set_type("sse2")
+#npfma.set_type("avx")
+#npfma.set_type("fma3")
+#npfma.set_type("fma4")
+
 a = np.arange(5.)
 b = np.arange(5.)
 c = np.arange(5.)
-print npufunc.fma(a, b, c)
+print npfma.fma(a, b, c)
 print a * b + c
 
 a = np.arange(5.)
 b = np.arange(5.)
-c = np.arange(1.)
-print npufunc.fma(a, b, c)
+c = np.arange(1.)+1
+print npfma.fma(a, b, c)
 print a * b + c
+print npfma.fms(a, b, c)
+print a * b - c
 
-a = np.arange(1.)
+a = np.arange(1.)+1
 b = np.arange(5.)
-c = np.arange(1.)
-print npufunc.fma(a, b, c)
+c = np.arange(1.)+1
+print npfma.fma(a, b, c)
 print a * b + c
 
 a = np.arange(5000.)
 b = np.arange(5000.)
 c = np.arange(5000.)
-%timeit npufunc.fma(a, b, c)
+%timeit npfma.fma(a, b, c)
 
-def npfma(a,b,c):
-    a * b + c
+a = np.arange(500000.)
+b = np.arange(500000.)
+c = np.arange(500000.)
+%timeit npfma.fma(a, b, c)
+%timeit npfma.fms(a, b, c)
 
-%timeit npfma(a, b, c)
+def pure_numpy_fma(a,b,c):
+    return a * b + c
 
-a = np.arange(50000.)
-b = np.arange(50000.)
-c = np.arange(50000.)
-%timeit npufunc.fma(a, b, c)
-%timeit npfma(a, b, c)
+%timeit pure_numpy_fma(a, b, c)
+
+def pure_numpy_fma2(a,b,c):
+    tmp = a *b 
+    tmp += c
+    return tmp
+
+%timeit pure_numpy_fma2(a, b, c)
