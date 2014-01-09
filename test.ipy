@@ -6,7 +6,8 @@ def get_data(s):
     for i in range(4):
         x = np.arange(s + 2.)
         if x.__array_interface__['data'][0] % 32 != 0:
-            r.append(x[2:] - 2.)
+            r.append(x[2:])
+            r[-1] -= 2.
         else:
             r.append(x[:-2])
     return r
