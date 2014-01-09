@@ -4,7 +4,7 @@ import npfma
 def get_data(s):
     r = []
     for i in range(4):
-        x = np.arange(s + 2.),
+        x = np.arange(s + 2.)
         if x.__array_interface__['data'][0] % 32 != 0:
             r.append(x[2:] - 2.)
         else:
